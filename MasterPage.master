@@ -1,0 +1,39 @@
+<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <table style="font-size: 10pt; font-family: Verdana" width="90%">
+            <tr>
+                <td style="background-color: lemonchiffon" valign="top" width="30%">
+                    <strong><span style="font-size: 18px; color: #996633">My Photo Gallery...<br />
+                    </span></strong>
+                    <br />
+                    <asp:LinkButton ID="lnkNewCategory" runat="server" CausesValidation="False" PostBackUrl="~/NewCategory.aspx">Create New Category</asp:LinkButton><br />
+                    <asp:LinkButton ID="lnkUploadPhoto" runat="server" PostBackUrl="~/UploadPhoto.aspx" CausesValidation="False">Upload Photo</asp:LinkButton><br />
+                    &nbsp;<br />
+                    <asp:DataList ID="dtlCategory" runat="server" DataKeyField="PKCategoryId" DataSourceID="DSCategory">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("Title") %>' NavigateUrl='<%# Eval("PKCategoryId", "Main.aspx?Category={0}") %>' ToolTip='<%# Eval("Description") %>'></asp:HyperLink><br />
+                        </ItemTemplate>
+                    </asp:DataList><asp:SqlDataSource ID="DSCategory" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                        SelectCommand="SELECT [PKCategoryId], [Title], [Description] FROM [Category] ORDER BY [Title]">
+                    </asp:SqlDataSource>
+                </td>
+                <td rowspan="2" valign="top" width="70%">
+        <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+        </asp:contentplaceholder>
+                </td>
+            </tr>
+        </table>
+        <br />
+        &nbsp;</div>
+    </form>
+</body>
+</html>
